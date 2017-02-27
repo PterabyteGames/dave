@@ -28,7 +28,7 @@ video::video()
 {
 }
 
-void video::start()
+void video::start(sol::state const& lua_state)
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -36,11 +36,18 @@ void video::start()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	window = glfwCreateWindow(800, 600, "demo", nullptr, nullptr);
+
+	int width = lua_state["window"]["width"].get_or(800);
+	int height = lua_state["window"]["height"].get_or(600);
+	std::string title = lua_state["window"]["title"].get_or(std::string{"demo"});
+	window = glfwCreateWindow(width,
+	                          height,
+	                          title.c_str(),
+	                          nullptr,
+	                          nullptr);
 	glfwMakeContextCurrent(window);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	glfwSetKeyCallback(window, key_callback);
-	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 
 	glViewport(0, 0, width, height);

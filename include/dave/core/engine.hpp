@@ -21,6 +21,7 @@ public:
 	void stop();
 
 	void add_system(std::shared_ptr<system> s, bool repeating, bool background);
+	void initialise_systems();
 
 	struct stop_event
 	{

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "sol.hpp"
+
 #include <chrono>
 #include <string>
 
@@ -11,7 +13,7 @@ public:
 	system(std::string const& name);
 	virtual ~system();
 
-	virtual void start()                                 = 0;
+	virtual void start(sol::state const& lua_state)      = 0;
 	virtual void update(std::chrono::milliseconds delta) = 0;
 	virtual void stop()                                  = 0;
 

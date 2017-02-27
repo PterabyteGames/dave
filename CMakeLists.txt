@@ -13,6 +13,10 @@ add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/external/glad)
 set (LUA_COMPAT_5_1 OFF CACHE BOOL "")
 set (LUA_COMPAT_5_2 OFF CACHE BOOL "")
 add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/external/lua/lua)
+set (LUA_INCLUDE_DIRS
+	 ${CMAKE_CURRENT_SOURCE_DIR}/external/lua/lua/src
+	 ${CMAKE_CURRENT_BINARY_DIR}/external/lua/lua
+)
 
 project (DAVE CXX)
 
@@ -30,9 +34,15 @@ add_library (${PROJECT_NAME} SHARED ${SOURCE})
 target_include_directories (${PROJECT_NAME}
 	PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/include
+
+	# OpenGL
 	glad
 	glm
 	glfw
+
+	# Lua
+	${LUA_INCLUDE_DIRS}
+	${CMAKE_CURRENT_SOURCE_DIR}/external/lua/sol2
 )
 
 target_link_libraries (${PROJECT_NAME}
