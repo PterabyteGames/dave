@@ -1,0 +1,12 @@
+[submodule "external/glfw"]
+	path = external/glfw
+	url = https://github.com/glfw/glfw
+[submodule "external/glm"]
+	path = external/glm
+	url = https://github.com/g-truc/glm
+[submodule "external/sol2"]
+	path = external/lua/sol2
+	url = https://github.com/ThePhD/sol2
+[submodule "external/lua/lua"]
+	path = external/lua/lua
+	url = https://github.com/LuaDist/lua
