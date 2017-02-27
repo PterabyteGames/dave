@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 3.5)
 
+set (BUILD_SHARED_LIBS   ON)
 set (GLFW_BUILD_DOCS     OFF CACHE BOOL "")
 set (GLFW_BUILD_TESTS    OFF CACHE BOOL "")
 set (GLFW_BUILD_EXAMPLES OFF CACHE BOOL "")
@@ -8,6 +9,10 @@ add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/external/glfw)
 add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/external/glm)
 
 add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/external/glad)
+
+set (LUA_COMPAT_5_1 OFF CACHE BOOL "")
+set (LUA_COMPAT_5_2 OFF CACHE BOOL "")
+add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/external/lua/lua)
 
 project (DAVE CXX)
 
@@ -22,8 +27,6 @@ set (SOURCE
 
 add_library (${PROJECT_NAME} SHARED ${SOURCE})
 
-find_package (OpenGL REQUIRED)
-
 target_include_directories (${PROJECT_NAME}
 	PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -35,6 +38,7 @@ target_include_directories (${PROJECT_NAME}
 target_link_libraries (${PROJECT_NAME}
 	glad
 	glfw
+	liblua
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE
