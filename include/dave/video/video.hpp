@@ -1,6 +1,9 @@
 #pragma once
 
 #include "dave/core/system.hpp"
+#include "dave/video/window.hpp"
+
+#include <memory>
 
 struct GLFWwindow;
 
@@ -17,6 +20,6 @@ public:
 	void stop() override;
 
 private:
-	GLFWwindow* window;
+	std::unique_ptr<window> main_window;
 };
 }

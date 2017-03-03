@@ -1,0 +1,15 @@
+#pragma once
+
+struct @WINDOW_HANDLE_FORWARD_DECLARATION@;
+
+namespace dave::video
+{
+	using native_window_handle = @WINDOW_HANDLE_FORWARD_DECLARATION@*;
+}
+
+namespace dave::platform
+{
+	void init();
+	void poll_events();
+	void deinit();
+}

@@ -22,18 +22,29 @@ project (DAVE CXX)
 
 set (SOURCE
 	source/core/engine.cpp
+	source/core/platform_desktop.cpp
 	source/core/system.cpp
 	source/core/task.cpp
 	source/core/task_scheduler.cpp
 
 	source/video/video.cpp
+	source/video/window_desktop.cpp
 )
+
+if (WIN32 OR UNIX)
+	set (WINDOW_HANDLE_FORWARD_DECLARATION GLFWwindow)
+endif()
+
+configure_file (${CMAKE_CURRENT_SOURCE_DIR}/include/dave/core/platform.hpp.in
+	            ${CMAKE_CURRENT_BINARY_DIR}/dave/core/platform.hpp
+			    @ONLY)
 
 add_library (${PROJECT_NAME} SHARED ${SOURCE})
 
 target_include_directories (${PROJECT_NAME}
 	PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/include
+	${CMAKE_CURRENT_BINARY_DIR}
 
 	# OpenGL
 	glad
