@@ -1,5 +1,12 @@
 cmake_minimum_required (VERSION 3.5)
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+option (DAVEAPI_EXPORT ON "")
+option (DAVEAPI_EXPORT_BUILD ON "")
+
 set (BUILD_SHARED_LIBS   ON)
 set (GLFW_BUILD_DOCS     OFF CACHE BOOL "")
 set (GLFW_BUILD_TESTS    OFF CACHE BOOL "")
@@ -29,6 +36,8 @@ set (SOURCE
 
 	source/video/video.cpp
 	source/video/window_desktop.cpp
+
+	external/glad/glad.c
 )
 
 if (WIN32 OR UNIX)
@@ -47,6 +56,7 @@ target_include_directories (${PROJECT_NAME}
 	${CMAKE_CURRENT_BINARY_DIR}
 
 	# OpenGL
+	SYSTME PUBLIC
 	glad
 	glm
 	glfw
@@ -60,12 +70,23 @@ target_link_libraries (${PROJECT_NAME}
 	glad
 	glfw
 	liblua
+	opengl32
+)
+
+target_compile_definitions (
+    ${PROJECT_NAME}
+    PUBLIC
+    DAVEAPI_EXPORT
+    DAVEAPI_EXPORT_BUILD
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE
+	"$<$<CXX_COMPILER_ID:MSVC>:/std:c++latest>"
 	"$<$<CXX_COMPILER_ID:Clang>:-std=c++1z>"
 	"$<$<CXX_COMPILER_ID:GNU>:-std=c++1z>")
 
 target_compile_options(${PROJECT_NAME} PRIVATE
 	"$<$<CXX_COMPILER_ID:Clang>:-fPIC>"
 	"$<$<CXX_COMPILER_ID:GNU>:-fPIC>")
+
+add_subdirectory (examples)

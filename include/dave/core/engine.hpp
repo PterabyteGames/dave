@@ -1,5 +1,6 @@
 #pragma once
 
+#include "dave/core/platform.hpp"
 #include "dave/core/system.hpp"
 
 #include "dave/core/task_scheduler.hpp"
@@ -14,14 +15,14 @@ class system;
 class engine
 {
 public:
-	engine();
-	~engine();
+	DAVEAPI engine();
+	DAVEAPI ~engine();
 
-	void run();
-	void stop();
+	DAVEAPI void run();
+	DAVEAPI void stop();
 
-	void add_system(std::shared_ptr<system> s, bool repeating, bool background);
-	void initialise_systems();
+	DAVEAPI void add_system(std::shared_ptr<system> s, bool repeating, bool background);
+	DAVEAPI void initialise_systems();
 
 	struct stop_event
 	{
@@ -30,7 +31,7 @@ public:
 	void operator()(stop_event const& event);
 
 	template <typename Function>
-	void add_job(Function&& function, bool repeating, bool background)
+	DAVEAPI void add_job(Function&& function, bool repeating, bool background)
 	{
 		scheduler.add_task(std::move(function), repeating, background);
 	}

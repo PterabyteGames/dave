@@ -35,9 +35,7 @@ void engine::stop()
 	systems.clear();
 }
 
-void engine::add_system(std::shared_ptr<system> s,
-                        bool                    repeating,
-                        bool                    background)
+void engine::add_system(std::shared_ptr<system> s, bool repeating, bool background)
 {
 	scheduler.add_task([s] { s->update(std::chrono::milliseconds{}); },
 	                   repeating,
@@ -52,7 +50,7 @@ void engine::initialise_systems()
 	lua.open_libraries(sol::lib::base, sol::lib::package);
 	lua.script_file("dave_config.lua");
 
-	for (auto s: systems)
+	for (auto s : systems)
 	{
 		s->start(lua);
 	}

@@ -2,6 +2,7 @@
 
 #include "dave/core/task.hpp"
 #include "dave/util/concurrent_queue.hpp"
+#include "dave/core/platform.hpp"
 
 #include <cstdint>
 #include <thread>

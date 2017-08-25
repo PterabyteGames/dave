@@ -13,3 +13,29 @@ namespace dave::platform
 	void poll_events();
 	void deinit();
 }
+
+#ifndef DAVEAPI
+# if defined(DAVEAPI_EXPORT)
+#  if defined(WIN32) || defined(__CYGWIN__)
+#   if defined(DAVEAPI_EXPORT_BUILD)
+#    if defined(__GNUC__)
+#     define DAVEAPI __attribute__ ((dllexport))
+#    else
+#     define DAVEAPI __declspec(dllexport)
+#    endif
+#   else
+#    if defined(__GNUC__)
+#     define DAVEAPI __attribute__ ((dllimport))
+#    else
+#     define DAVEAPI __declspec(dllimport)
+#    endif
+#   endif
+#  elif defined(__GNUC__) && defined(DAVEAPI_EXPORT_BUILD)
+#   define DAVEAPI __attribute__ ((visibility ("default")))
+#  else
+#   define DAVEAPI
+#  endif
+# else
+#  define DAVEAPI
+# endif
+#endif

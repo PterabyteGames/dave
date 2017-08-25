@@ -1,5 +1,7 @@
 #pragma once
 
+#include "dave/core/platform.hpp"
+
 #include <functional>
 
 namespace dave

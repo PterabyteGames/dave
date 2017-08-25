@@ -24,7 +24,7 @@ public:
 
 public:
 	window(int width, int height, std::string const& title);
-	~window();
+	DAVEAPI ~window();
 
 	window(window&& w);
 	window& operator=(window&& w);
