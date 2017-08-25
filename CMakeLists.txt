@@ -36,8 +36,6 @@ set (SOURCE
 
 	source/video/video.cpp
 	source/video/window_desktop.cpp
-
-	external/glad/glad.c
 )
 
 if (WIN32 OR UNIX)
