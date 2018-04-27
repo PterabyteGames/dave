@@ -28,7 +28,7 @@ void engine::stop()
 {
 	scheduler.stop();
 
-	for (auto s : systems)
+	for (auto const& s : systems)
 	{
 		s->stop();
 	}
@@ -50,7 +50,7 @@ void engine::initialise_systems()
 	lua.open_libraries(sol::lib::base, sol::lib::package);
 	lua.script_file("dave_config.lua");
 
-	for (auto s : systems)
+	for (auto const& s : systems)
 	{
 		s->start(lua);
 	}

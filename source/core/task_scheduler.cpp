@@ -46,7 +46,7 @@ task_scheduler::~task_scheduler()
 
 void task_scheduler::add_task(task t, bool repeating, bool background)
 {
-	auto wrapped = make_task(t, repeating, background);
+	auto wrapped = make_task(std::move(t), repeating, background);
 	add_wrapped_task(wrapped);
 }
 

@@ -19,7 +19,7 @@ namespace core::detail
 	}
 
 	wrapped_task::wrapped_task(task t, bool repeating, bool background)
-	    : t{t}
+	    : t{std::move(t)}
 	    , repeating{repeating}
 	    , background{background}
 	{

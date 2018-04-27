@@ -26,8 +26,8 @@ public:
 	window(int width, int height, std::string const& title);
 	DAVEAPI ~window();
 
-	window(window&& w);
-	window& operator=(window&& w);
+	window(window&& w) noexcept;
+	window& operator=(window&& w) noexcept;
 
 	// disable copying
 	window(window const&) = delete;

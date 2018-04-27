@@ -32,11 +32,11 @@ window::~window()
 	}
 }
 
-window::window(window&& w)
-    : width{std::move(w.width)}
-    , height{std::move(w.height)}
+window::window(window&& w) noexcept
+    : width{w.width}
+    , height{w.height}
     , title{std::move(w.title)}
-    , handle{std::move(handle)}
+    , handle{handle}
 {
 	w.handle = nullptr;
 
@@ -49,17 +49,17 @@ window::window(window&& w)
 	    events::create_event{this});
 }
 
-window& window::operator=(window&& w)
+window& window::operator=(window&& w) noexcept
 {
 	if (handle)
 	{
 		glfwDestroyWindow(handle);
 	}
 
-	width    = std::move(w.width);
-	height   = std::move(w.height);
+	width    = w.width;
+	height   = w.height;
 	title    = std::move(w.title);
-	handle   = std::move(handle);
+	handle   = w.handle;
 	w.handle = nullptr;
 
 	if (handle)
@@ -75,7 +75,7 @@ window& window::operator=(window&& w)
 
 bool window::should_close()
 {
-	return glfwWindowShouldClose(handle);
+	return glfwWindowShouldClose(handle) == 1;
 }
 
 void window::make_current()

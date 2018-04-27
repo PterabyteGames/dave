@@ -68,7 +68,7 @@ target_link_libraries (${PROJECT_NAME}
 	glad
 	glfw
 	liblua
-	opengl32
+	$<$<PLATFORM_ID:Windows>:opengl32>
 )
 
 target_compile_definitions (
@@ -80,8 +80,8 @@ target_compile_definitions (
 
 target_compile_options(${PROJECT_NAME} PRIVATE
 	"$<$<CXX_COMPILER_ID:MSVC>:/std:c++latest>"
-	"$<$<CXX_COMPILER_ID:Clang>:-std=c++1z>"
-	"$<$<CXX_COMPILER_ID:GNU>:-std=c++1z>")
+	"$<$<CXX_COMPILER_ID:Clang>:-std=c++17>"
+	"$<$<CXX_COMPILER_ID:GNU>:-std=c++17>")
 
 target_compile_options(${PROJECT_NAME} PRIVATE
 	"$<$<CXX_COMPILER_ID:Clang>:-fPIC>"
